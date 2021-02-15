@@ -1,0 +1,2 @@
+include ':RVDS'
+rootProject.name = "Remote Vehicle Diagnostic System"
