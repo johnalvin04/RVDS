@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fyp.ui_activities">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/scan"
+        android:label="RVDS"
+        android:roundIcon="@drawable/scan"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RemoteVehicleDiagnosticSystem">
+
+        <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Resetpassword"
+            android:parentActivityName=".Homepage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Homepage" />
+        </activity>
+        <activity android:name=".Homepage" />
+        <activity
+            android:name=".Dashboard"
+            android:parentActivityName=".Homepage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fyp.ui_activities.Homepage" />
+        </activity>
+        <activity
+            android:name=".Scanpage"
+            android:parentActivityName=".Homepage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Homepage" />
+        </activity>
+        <activity
+            android:name=".PastScanpage"
+            android:parentActivityName=".Homepage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Homepage" />
+        </activity>
+        <activity
+            android:name=".Register"
+            android:parentActivityName=".Login">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Login" />
+        </activity>
+
+        <activity android:name=".AboutUspage"
+            android:parentActivityName=".Homepage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Homepage" />
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

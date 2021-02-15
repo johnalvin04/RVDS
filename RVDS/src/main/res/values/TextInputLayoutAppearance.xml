@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/colorPrimary_Dark</item>
+        <item name="colorControlActivated">@color/colorSecondary</item>
+        <item name="boxStrokeColor">@color/font_Primary</item>
+        <item name="android:textColorHint">@color/font_Secondary</item>
+        <item name="hintTextColor">@color/font_Secondary</item>
+        <item name="boxBackgroundColor">@color/filledTextFieldColor</item>
+        <item name="boxStrokeErrorColor">@color/font_Primary</item>
+    </style>
+</resources>

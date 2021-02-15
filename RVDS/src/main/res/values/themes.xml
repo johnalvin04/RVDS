@@ -1,0 +1,13 @@
+<resources>
+    <style name="Theme.RemoteVehicleDiagnosticSystem" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary_Dark</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorSecondary_Dark</item>
+        <item name="android:windowBackground">@color/colorPrimary_Dark</item>
+        <item name="android:textColor">@color/font_Primary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+</resources>

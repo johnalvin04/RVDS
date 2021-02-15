@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "986961040514",
+    "firebase_url": "https://rvdsproject-default-rtdb.firebaseio.com",
+    "project_id": "rvdsproject",
+    "storage_bucket": "rvdsproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986961040514:android:05363905057befbff7109b",
+        "android_client_info": {
+          "package_name": "fyp.remotevehiclediagnosticsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986961040514-j7dgg7vdf0icb328jajok398sltpp0jv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDefwFkZgyNesLAX1Ewy22jy87DSBddiXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986961040514-j7dgg7vdf0icb328jajok398sltpp0jv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

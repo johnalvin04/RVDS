@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Remote Vehicle Diagnostic System</string>
+    <!--    <string name="navigation_drawer_open">Open navigation drawer</string>-->
+    <!--    <string name="navigation_drawer_close">Close navigation drawer</string>-->
+    <!--    <string name="nav_header_title">Android Studio</string>-->
+    <!--    <string name="nav_header_subtitle">android.studio@android.com</string>-->
+    <!--    <string name="nav_header_desc">Navigation header</string>-->
+    <!--    <string name="action_settings">Settings</string>-->
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    //Login,Register,Reset Pass fields
+    <string name="inputusername">Username can only contain alphanumerical characters</string>
+    <string name="inputemail">Email cannot be empty</string>
+    <string name="inputpassword">Password must only be alphanumerical</string>
+    <string name="inputrepassword">Password must only be alphanumerical</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="retypepassword">Retype Password</string>
+
+    //Nav menu
+    <string name="logoutbutton">Logout</string>
+    <string name="deletebutton">Delete Profile</string>
+
+    //Login buttons
+    <string name="loginbutton">LOGIN</string>
+    <string name="forgotpassbutton">FORGOT PASSWORD?</string>
+    <string name="registerbutton">New User? Register Now</string>
+    <string name="verifybutton">VERIFY</string>
+    //Register page buttons
+    <string name="registeruserbutton">REGISTER</string>
+    <string name="registerheader">Register</string>
+
+    //Homepage buttons
+    <string name="dashboardbutton">Dashboard</string>
+    <string name="scanbutton">Diagnostic Scan</string>
+    <string name="prevscanbutton">Past Diagnosis</string>
+
+    //Homepage,Dashboard,Scan Page, Previous Scan Page
+    <string name="homepageheader">RVD System</string>
+    <string name="resetpasswordheader">Reset Password</string>
+    <string name="updatepasswordbutton">Update Password</string>
+    <string name="dashboardheader">Dashboard</string>
+    <string name="scanheader">Results</string>
+    <string name="pastscanheader">Past Scans</string>
+    <string name="aboutusheader">About Us</string>
+    <string name="savescan">Save</string>
+    <string name="clearscan">Clear Codes</string>
+
+    //About use page
+    <string name="developmentdetails">This application is developed by John Alvin Joseph,for the purpose of Remotely Diagnosing A Car. The application allows the users to monitor real-time vehicle data as well as scanning for Diagnostic Fault Codes. This application is developed for my Degree Final Year Project.This application requires the users to purchase a ELM327 device or any OBD compatible tool.The system connects to the tool using Bluetooth connection. Hence, users are required to connect to the device beforehand through the Bluetooth Settings terminal in their mobile devices. The system communicates to the device using AT commands to request and receive data regarding the vehicle.</string>
+    <string name="contactus">Users can contact the developer through email if there is any bugs found while using the system or provide suggestions on further improvement.
+        Email:johnalvin04gmail.com
+    </string>
+
+</resources>
