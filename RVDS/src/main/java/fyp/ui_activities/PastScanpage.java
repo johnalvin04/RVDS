@@ -11,14 +11,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -55,21 +60,25 @@ public class PastScanpage extends AppCompatActivity {
         //rd.dismiss();
         if(fuser !=null) {
             String email = fuser.getEmail();
-            fs.collection("Diagnostics").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            CollectionReference fstore = fs.collection("Diagnostics").document(email).collection("Date");
+            fstore.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if(documentSnapshot.exists()){
-                        String faultcodes = documentSnapshot.getString("Code");
-                        String date = documentSnapshot.getString("Date");
-                        String description = documentSnapshot.getString("Description");
-                        TroubleCodes pastsc = new TroubleCodes(date,faultcodes,description);
-                        pastscan.add(pastsc);
+                public void onSuccess(QuerySnapshot documentSnapshot) {
+                    if(!documentSnapshot.isEmpty()){
+                        for (DocumentSnapshot documentSnapshots : documentSnapshot.getDocuments()) {
+                            String date = documentSnapshots.getId();
+                            String faultcodes = documentSnapshots.getString("Code");
+                            String description = documentSnapshots.getString("Description");
+                            TroubleCodes pastsc = new TroubleCodes(date,faultcodes,description);
+                            pastscan.add(pastsc);
+                        }
+                        pastscansdpt.setAdapter(new PastScanAdapter(pastscan, PastScanpage.this));
                     }
                     else{
-                        TroubleCodes nosc = new TroubleCodes("No Fault Codes Saved",null, null);
+                        TroubleCodes nosc = new TroubleCodes("No Diagnosis Scans",null, null);
                         pastscan.add(nosc);
+                        pastscansdpt.setAdapter(new PastScanAdapter(pastscan, PastScanpage.this));
                     }
-                    pastscansdpt.setAdapter(new PastScanAdapter(pastscan, PastScanpage.this));
                 }
             });
         }

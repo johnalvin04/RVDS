@@ -1,9 +1,11 @@
 package fyp.model;
 
+import java.util.List;
+
 public class TroubleCodes {
-    private final String troubleCode;
-    private final String description;
-    private  String date;
+    private String troubleCode;
+    private String description;
+    private String date;
 
     public TroubleCodes(String troubleCode, String description) {
         this.troubleCode = troubleCode;

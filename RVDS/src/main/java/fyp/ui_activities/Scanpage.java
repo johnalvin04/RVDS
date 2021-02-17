@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import fyp.adapters.DTCadapter;
@@ -111,6 +112,7 @@ public class Scanpage extends AppCompatActivity {
                     listTroubleCodes.add(nofaults);
                 }
                 dtccode.setAdapter(new DTCadapter(listTroubleCodes, Scanpage.this));
+                onDestroy();
             }
         }
     };
@@ -139,8 +141,6 @@ public class Scanpage extends AppCompatActivity {
         Map<String,Object> diagnostics = new HashMap<>();
         String date = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-
-        diagnostics.put("Date",date);
         if(fuser !=null){
             String email = fuser.getEmail();
             for (int i = 0; i < listTroubleCodes.size();i++) {
@@ -149,7 +149,8 @@ public class Scanpage extends AppCompatActivity {
                 diagnostics.put("Code",faultCodes);
                 diagnostics.put("Description",description);
             }
-            fs.collection("Diagnostics").document(email).set(diagnostics).addOnSuccessListener(new OnSuccessListener<Void>() {
+            fs.collection("Diagnostics").document(email).collection("Date").document(date).set(diagnostics).addOnSuccessListener(new OnSuccessListener<Void>()
+            {
                 @Override
                 public void onSuccess(Void aVoid) {
                     sd.dismiss();
