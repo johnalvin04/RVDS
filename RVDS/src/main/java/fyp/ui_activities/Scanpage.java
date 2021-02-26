@@ -71,6 +71,8 @@ public class Scanpage extends AppCompatActivity {
 
         setUpToolbar();
 
+        stopService(new Intent(this, ObdReaderService.class));
+
         //obd commands into an array
         ArrayList<ObdCommand> obdCommands = new ArrayList<>();
         obdCommands.add(new TroubleCodesCommand());
@@ -82,7 +84,6 @@ public class Scanpage extends AppCompatActivity {
         registerReceiver(mObdReaderReceiver, intentFilter);
 
         startService(new Intent(this, ObdReaderService.class));
-
     }
 
     private final BroadcastReceiver mObdReaderReceiver = new BroadcastReceiver() {
@@ -102,17 +103,36 @@ public class Scanpage extends AppCompatActivity {
             } else if (action.equals(ACTION_READ_OBD_REAL_TIME_DATA)) {
                 pd.dismiss();
                 TripRecord tripRecord = TripRecord.getTripRecode(Scanpage.this);
-                String dtccodes = tripRecord.getmFaultCodes();
-                if (!dtccodes.isEmpty()) {
-                    String description = TroubleCodes.getFaultCode(dtccodes);
-                    TroubleCodes faults = new TroubleCodes(dtccodes, description);
-                    listTroubleCodes.add(faults);
-                } else {
-                    TroubleCodes nofaults = new TroubleCodes("No Fault Codes Stored", "-");
-                    listTroubleCodes.add(nofaults);
+                String value = tripRecord.getmFaultCodes().replaceAll("\n", "").trim();
+
+                stopService(new Intent(Scanpage.this, ObdReaderService.class));
+
+                if (!value.isEmpty())
+                {
+                    int size = value.length();
+                    int loop = size/5;
+                    int x = 0;
+                    for(int i = 0; i<loop;i++){
+                        int y = x + 5;
+                        String dtccodes = value.substring(x,y);
+                        String description = TroubleCodes.getFaultCode(dtccodes);
+                        TroubleCodes faults;
+                        if(description == null){
+                            faults = new TroubleCodes(dtccodes, "Description not available");
+                        }
+                        else{
+                            faults = new TroubleCodes(dtccodes, description);
+                        }
+                        listTroubleCodes.add(faults);
+                        x = x+ 5;
+                    }
+                    dtccode.setAdapter(new DTCadapter(listTroubleCodes, Scanpage.this));
                 }
-                dtccode.setAdapter(new DTCadapter(listTroubleCodes, Scanpage.this));
-                onDestroy();
+                else {
+                    TroubleCodes nofaults = new TroubleCodes("No Fault Codes Stored", null);
+                    listTroubleCodes.add(nofaults);
+                    dtccode.setAdapter(new DTCadapter(listTroubleCodes, Scanpage.this));
+                }
             }
         }
     };
@@ -122,7 +142,7 @@ public class Scanpage extends AppCompatActivity {
         return true;
     }
 
-    //
+    //option selection menu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
@@ -138,17 +158,22 @@ public class Scanpage extends AppCompatActivity {
     //saving results method
     public void savecode() {
         sd.show();
-        Map<String,Object> diagnostics = new HashMap<>();
+        Map<String,List<String>> diagnostics = new HashMap<>();
         String date = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        ArrayList<String> listFaults=new ArrayList<>();
+        ArrayList<String> listDescription=new ArrayList<>();
         if(fuser !=null){
             String email = fuser.getEmail();
             for (int i = 0; i < listTroubleCodes.size();i++) {
                 String faultCodes = listTroubleCodes.get(i).getTroubleCode();
                 String description = listTroubleCodes.get(i).getDescription();
-                diagnostics.put("Code",faultCodes);
-                diagnostics.put("Description",description);
+                listFaults.add(faultCodes);
+                listDescription.add(description);
+
             }
+            diagnostics.put("Code",listFaults);
+            diagnostics.put("Description",listDescription);
             fs.collection("Diagnostics").document(email).collection("Date").document(date).set(diagnostics).addOnSuccessListener(new OnSuccessListener<Void>()
             {
                 @Override
@@ -181,12 +206,11 @@ public class Scanpage extends AppCompatActivity {
                 registerReceiver(mObdReaderReceiver, intentFilter);
 
                 startService(new Intent(Scanpage.this, ObdReaderService.class));
-                onDestroy();
 
                 cd.dismiss();
-                
+
+                Toast.makeText(getApplicationContext(), "Fault Codes cleared", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Scanpage.this, Homepage.class);
-                Toast.makeText(Scanpage.this, "Fault Codes cleared", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

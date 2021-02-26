@@ -112,6 +112,9 @@ public class Dashboard extends AppCompatActivity {
                 if (tripRecord.getSpeed() >= 80) {
                     speed.setTextColor(Color.RED);
                 }
+                else{
+                    speed.setTextColor(Color.WHITE);
+                }
                 speed.setText(String.valueOf(tripRecord.getSpeed())); //display speed
                 rpm.setText(tripRecord.getEngineRpm()); //display rpm
                 load.setText(tripRecord.getmEngineLoad());//display engine load

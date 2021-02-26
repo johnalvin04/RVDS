@@ -1,7 +1,5 @@
 package fyp.model;
 
-import java.util.List;
-
 public class TroubleCodes {
     private String troubleCode;
     private String description;
@@ -17,6 +15,7 @@ public class TroubleCodes {
         this.description = description;
         this.date = date;
     }
+
 
     public String getDate() {
         return date;

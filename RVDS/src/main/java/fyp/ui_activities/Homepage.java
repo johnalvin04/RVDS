@@ -19,11 +19,14 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sohrab.obd.reader.service.ObdReaderService;
 
 public class Homepage extends AppCompatActivity {
 
@@ -40,10 +43,10 @@ public class Homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         setUpToolbar();
-
+        stopService(new Intent(this, ObdReaderService.class));
         //setting progress dialog and title
         dd =  new ProgressDialog(this);
-        dd.setTitle("Deleting User Profile and Diagnostic Data");
+        dd.setTitle("Deleting User Profile");
 
         navigationView = findViewById(R.id.nav_menu);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -123,8 +126,6 @@ public class Homepage extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dd.show();
                 FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-                String email = fuser.getEmail();
-                fs.collection("Diagnostics").document(email).delete();
                 deleteuser(fuser);
             }
         });
