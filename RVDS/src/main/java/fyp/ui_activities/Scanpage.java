@@ -118,7 +118,7 @@ public class Scanpage extends AppCompatActivity {
                         String description = TroubleCodes.getFaultCode(dtccodes);
                         TroubleCodes faults;
                         if(description == null){
-                            faults = new TroubleCodes(dtccodes, "Description not available");
+                            faults = new TroubleCodes(dtccodes, "Manufacturing Specific Fault Code");
                         }
                         else{
                             faults = new TroubleCodes(dtccodes, description);
