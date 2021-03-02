@@ -1,9 +1,6 @@
 package fyp.ui_activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
+// Coded by : John Alvin Joseph
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,18 +10,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sohrab.obd.reader.service.ObdReaderService;
 
@@ -42,12 +41,18 @@ public class Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        //sets up toolbar at launch
         setUpToolbar();
+
+        //stops service when homepage launched
         stopService(new Intent(this, ObdReaderService.class));
+
         //setting progress dialog and title
         dd =  new ProgressDialog(this);
         dd.setTitle("Deleting User Profile");
 
+        //initialising navigation drawer
         navigationView = findViewById(R.id.nav_menu);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -75,7 +80,7 @@ public class Homepage extends AppCompatActivity {
         });
     }
 
-
+    //set up toolbar
     private void setUpToolbar(){
         drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -86,6 +91,7 @@ public class Homepage extends AppCompatActivity {
         checkCurrenUser();
     }
 
+    //redirect activity method
     public static void redirectActivity(Activity activity, Class classname){
         Intent intent = new Intent(activity, classname);
         activity.startActivity(intent);
@@ -169,6 +175,7 @@ public class Homepage extends AppCompatActivity {
         }
     }
 
+    //homepage main menu options
     public void Dashboardpage(View view) {
         redirectActivity(Homepage.this,Dashboard.class);
     }

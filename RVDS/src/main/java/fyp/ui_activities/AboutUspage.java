@@ -1,10 +1,12 @@
 package fyp.ui_activities;
 
+// Coded by : John Alvin Joseph
+
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.os.Bundle;
 
 public class AboutUspage extends AppCompatActivity {
     DrawerLayout drawerLayout;

@@ -1,15 +1,19 @@
 package fyp.model;
 
+// Coded by : John Alvin Joseph
+
 public class TroubleCodes {
     private String troubleCode;
     private String description;
     private String date;
 
+    //constructor for scanpage data
     public TroubleCodes(String troubleCode, String description) {
         this.troubleCode = troubleCode;
         this.description = description;
     }
 
+    //constructor for pastscanpage data
     public TroubleCodes(String date, String troubleCode, String description) {
         this.troubleCode = troubleCode;
         this.description = description;
@@ -29,6 +33,7 @@ public class TroubleCodes {
         return description;
     }
 
+    //matching description according to code
     public static String getFaultCode(String fault)
     {
         String faultDesc = null;

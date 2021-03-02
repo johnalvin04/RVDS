@@ -1,5 +1,7 @@
 package fyp.ui_activities;
 
+// Coded by : John Alvin Joseph
+
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,27 +9,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.sohrab.obd.reader.application.Preferences;
-import com.sohrab.obd.reader.enums.AvailableCommandNames;
 import com.sohrab.obd.reader.obdCommand.ObdCommand;
 import com.sohrab.obd.reader.obdCommand.ObdConfiguration;
 import com.sohrab.obd.reader.obdCommand.SpeedCommand;
 import com.sohrab.obd.reader.obdCommand.control.DistanceMILOnCommand;
 import com.sohrab.obd.reader.obdCommand.control.ModuleVoltageCommand;
-import com.sohrab.obd.reader.obdCommand.control.VinCommand;
 import com.sohrab.obd.reader.obdCommand.engine.LoadCommand;
 import com.sohrab.obd.reader.obdCommand.engine.MassAirFlowCommand;
 import com.sohrab.obd.reader.obdCommand.engine.RPMCommand;
@@ -35,7 +29,6 @@ import com.sohrab.obd.reader.obdCommand.temperature.AirIntakeTemperatureCommand;
 import com.sohrab.obd.reader.obdCommand.temperature.EngineCoolantTemperatureCommand;
 import com.sohrab.obd.reader.service.ObdReaderService;
 import com.sohrab.obd.reader.trip.TripRecord;
-
 
 import java.util.ArrayList;
 
@@ -55,6 +48,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         setUpToolbar();
 
+        //initialisation of variable to respective id's
         speed = findViewById(R.id.speeddisplay);
         rpm = findViewById(R.id.rpmdisplay);
         load = findViewById(R.id.loaddisplay);
@@ -133,7 +127,7 @@ public class Dashboard extends AppCompatActivity {
         }
     };
 
-
+    //sets up toolbar
     public void setUpToolbar() {
         drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -154,6 +148,7 @@ public class Dashboard extends AppCompatActivity {
         Preferences.get(this).setServiceRunningStatus(false);
     }
 
+    //disable back physical button
     public void onBackPressed() {
         moveTaskToBack(false);
     }

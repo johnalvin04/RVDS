@@ -1,5 +1,7 @@
 package fyp.ui_activities;
 
+// Coded by : John Alvin Joseph
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -32,7 +34,6 @@ import com.sohrab.obd.reader.trip.TripRecord;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,8 @@ public class Scanpage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanpage);
+
+        //initialising recyclerview to respective id
         dtccode = findViewById(R.id.scan_listview);
         dtccode.setLayoutManager(new LinearLayoutManager(Scanpage.this));
 

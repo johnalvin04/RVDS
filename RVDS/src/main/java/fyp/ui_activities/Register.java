@@ -1,27 +1,29 @@
  package fyp.ui_activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.drawerlayout.widget.DrawerLayout;
+// Coded by : John Alvin Joseph
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+ import android.app.ProgressDialog;
+ import android.content.Intent;
+ import android.os.Bundle;
+ import android.text.TextUtils;
+ import android.view.View;
+ import android.widget.Toast;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+ import androidx.annotation.NonNull;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.appcompat.widget.Toolbar;
+ import androidx.cardview.widget.CardView;
+ import androidx.drawerlayout.widget.DrawerLayout;
+
+ import com.basgeekball.awesomevalidation.AwesomeValidation;
+ import com.basgeekball.awesomevalidation.ValidationStyle;
+ import com.google.android.gms.tasks.OnCompleteListener;
+ import com.google.android.gms.tasks.Task;
+ import com.google.android.material.textfield.TextInputEditText;
+ import com.google.firebase.auth.AuthResult;
+ import com.google.firebase.auth.FirebaseAuth;
+ import com.google.firebase.auth.FirebaseUser;
+ import com.google.firebase.auth.UserProfileChangeRequest;
 
  public class Register extends AppCompatActivity {
     CardView register;
@@ -30,7 +32,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
     AwesomeValidation validation;
     DrawerLayout drawerLayout;
-
+    ProgressDialog rd;
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
 
@@ -40,13 +42,16 @@ import com.google.firebase.auth.UserProfileChangeRequest;
         setContentView(R.layout.activity_register);
         setUpToolbar();
 
-        //initialisation of variables
+        //initialisation of variable to respective id's
         register = findViewById(R.id.register_button);
 
         useredit = findViewById(R.id.username_textfield);
         emailedit = findViewById(R.id.email_textfield);
         passedit = findViewById(R.id.password_textfield);
         repassedit = findViewById(R.id.repassword_textfield);
+
+         rd = new ProgressDialog(this);
+         rd.setTitle("Registering Account");
 
         //register new user
         register.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +65,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
                 //validate if password and username contains any characters besides alphanumerical
                 //checks if password and retype password are the same
                 if(validate(password,repassword,username)){
+                    rd.show();
                     saveuser(email,password);
                 }
             }
@@ -110,6 +116,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             fuser.sendEmailVerification();
+                            rd.dismiss();
                             Toast.makeText(Register.this,"Account Created\n"+fuser.getDisplayName()+"\nVerification Email Sent",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Register.this, Login.class);
                             startActivity(intent);
@@ -118,6 +125,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
                     });
                 }
                 else{
+                    rd.dismiss();
                     Toast.makeText(Register.this,"Error Occurred"+ "\n"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }

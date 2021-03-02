@@ -1,15 +1,18 @@
 package fyp.ui_activities;
 
+// Coded by : John Alvin Joseph
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
@@ -28,6 +31,7 @@ public class Resetpassword extends AppCompatActivity {
 
     AwesomeValidation validation;
     DrawerLayout drawerLayout;
+    ProgressDialog ud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class Resetpassword extends AppCompatActivity {
         setContentView(R.layout.activity_resetpassword);
         setUpToolbar();
 
+        //initialisation of variable to respective id's
         update = findViewById(R.id.updatepassword_button);
 
         passlayout = findViewById(R.id.password_textInput);
@@ -42,6 +47,9 @@ public class Resetpassword extends AppCompatActivity {
 
         passedit = findViewById(R.id.password_textfield);
         repassedit = findViewById(R.id.repassword_textfield);
+
+        ud = new ProgressDialog(this);
+        ud.setTitle("Updating Password");
 
         //updates the new password to the database
         update.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +64,13 @@ public class Resetpassword extends AppCompatActivity {
             }
         });
     }
+
+    //disables physical back button
     public void onBackPressed() {
         moveTaskToBack(false);
     }
 
+    //sets up toolbar
     public void setUpToolbar(){
         drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -71,6 +82,7 @@ public class Resetpassword extends AppCompatActivity {
     public void checkCurrenUser(String password) {
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
         if(fuser !=null){
+            ud.show();
             updatepassword(password,fuser);
         }
         else{
@@ -81,6 +93,7 @@ public class Resetpassword extends AppCompatActivity {
         }
     }
 
+    //validation
     private boolean validate() {
         validation = new AwesomeValidation(ValidationStyle.BASIC);
         validation.addValidation(this, R.id.password_textfield, "^[a-zA-Z0-9]+$", R.string.inputpassword);
@@ -107,12 +120,14 @@ public class Resetpassword extends AppCompatActivity {
         fuser.updatePassword(password).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                ud.dismiss();
                 Toast.makeText(Resetpassword.this,"Password Updated",Toast.LENGTH_SHORT).show();
                 backtohome();
             }
         });
     }
 
+    //redirect to homepage
     private void backtohome(){
         Intent intent= new Intent(Resetpassword.this, Homepage.class);
         startActivity(intent);

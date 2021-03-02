@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Coded by John Alvin Joseph-->
+
 <resources>
     <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
         <item name="colorControlNormal">@color/colorPrimary_Dark</item>

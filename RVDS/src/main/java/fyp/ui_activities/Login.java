@@ -1,17 +1,18 @@
 package fyp.ui_activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+// Coded by : John Alvin Joseph
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +29,7 @@ public class Login extends AppCompatActivity {
     String email,password;
     TextInputEditText emailedit,passedit;
     TextView registerbutton,forgotpasswordbutton;
-
+    ProgressDialog ld;
     FirebaseAuth fAuth =  FirebaseAuth.getInstance();
 
     @Override
@@ -47,6 +48,9 @@ public class Login extends AppCompatActivity {
         emailedit = findViewById(R.id.email_textfield);
         passedit = findViewById(R.id.password_textfield);
 
+        ld = new ProgressDialog(this);
+        ld.setTitle("Signing In");
+
         //login button checks username and password from the textfield
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +64,7 @@ public class Login extends AppCompatActivity {
                     passedit.setError("Password cannot be empty!");
                 }
                 else{
+                    ld.show();
                     validatelogin(email,password);
                 }
             }
@@ -106,6 +111,7 @@ public class Login extends AppCompatActivity {
        fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
            @Override
            public void onComplete(@NonNull Task<AuthResult> task) {
+               ld.dismiss();
                if(task.isSuccessful()){
                    FirebaseUser fuser = fAuth.getCurrentUser();
                    updateUi(fuser);

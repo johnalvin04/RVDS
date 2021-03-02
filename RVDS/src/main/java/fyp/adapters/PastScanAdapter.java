@@ -1,5 +1,7 @@
 package fyp.adapters;
 
+// Coded by : John Alvin Joseph
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

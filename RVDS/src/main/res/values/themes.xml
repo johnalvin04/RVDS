@@ -1,4 +1,6 @@
 <resources>
+    <!--Coded by John Alvin Joseph-->
+
     <style name="Theme.RemoteVehicleDiagnosticSystem" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:colorPrimary">@color/colorPrimary_Dark</item>
         <item name="android:colorPrimaryDark">@color/colorPrimary</item>

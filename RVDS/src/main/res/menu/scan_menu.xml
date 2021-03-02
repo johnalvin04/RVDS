@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Coded by John Alvin Joseph-->
+
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/clearcodes"
