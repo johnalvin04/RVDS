@@ -79,6 +79,8 @@ public class Dashboard extends AppCompatActivity {
         intentFilter.addAction(ACTION_READ_OBD_REAL_TIME_DATA);
         intentFilter.addAction(ACTION_CONNECTION_STATUS_MSG);
         registerReceiver(mObdReaderReceiver, intentFilter);
+
+        //uses the OBD Reader service
         startService(new Intent(this, ObdReaderService.class));
 
     }

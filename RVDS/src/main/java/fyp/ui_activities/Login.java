@@ -163,6 +163,8 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Verification Email sent", Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        login.setVisibility(View.VISIBLE);
+                        verify.setVisibility(View.GONE);
                     }
                 });
             }
